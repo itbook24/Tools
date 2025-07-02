@@ -6,7 +6,6 @@
     <title>MLWBD - Movies, TV Shows and More</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* CSS will go here */
         :root {
             --primary: #ff4d4d;
             --dark: #1a1a1a;
@@ -149,6 +148,7 @@
             border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s;
+            cursor: pointer;
         }
         
         .movie-card:hover {
@@ -225,7 +225,7 @@
             .logo {
                 margin-bottom: 1rem;
             }
-            
+        
             .search-container {
                 width: 100%;
                 margin-bottom: 1rem;
@@ -314,138 +314,154 @@
     </footer>
 
     <script>
-        // Sample movie data
+        // Sample movie data with URLs
         const movies = [
             {
                 title: "Avengers: Endgame",
                 poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr_M8vIxaiUMwJgvqHEOiNuVoo3TSBSpPNew&s",
                 year: 2019,
                 rating: 8.4,
-                quality: "HD"
+                quality: "HD",
+                url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr_M8vIxaiUMwJgvqHEOiNuVoo3TSBSpPNew&s"
             },
             {
                 title: "The Dark Knight",
-                poster: "https://via.placeholder.com/300x450",
+                poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr_M8vIxaiUMwJgvqHEOiNuVoo3TSBSpPNew&s",
                 year: 2008,
                 rating: 9.0,
-                quality: "4K"
+                quality: "4K",
+                url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr_M8vIxaiUMwJgvqHEOiNuVoo3TSBSpPNew&s"
             },
             {
                 title: "Inception",
                 poster: "https://via.placeholder.com/300x450",
                 year: 2010,
                 rating: 8.8,
-                quality: "HD"
+                quality: "HD",
+                url: "movie-details.html?id=3"
             },
             {
                 title: "Interstellar",
                 poster: "https://via.placeholder.com/300x450",
                 year: 2014,
                 rating: 8.6,
-                quality: "4K"
+                quality: "4K",
+                url: "movie-details.html?id=4"
             },
             {
                 title: "Pulp Fiction",
                 poster: "https://via.placeholder.com/300x450",
                 year: 1994,
                 rating: 8.9,
-                quality: "HD"
+                quality: "HD",
+                url: "movie-details.html?id=5"
             },
             {
                 title: "The Shawshank Redemption",
                 poster: "https://via.placeholder.com/300x450",
                 year: 1994,
                 rating: 9.3,
-                quality: "HD"
+                quality: "HD",
+                url: "movie-details.html?id=6"
             },
             {
                 title: "The Godfather",
                 poster: "https://via.placeholder.com/300x450",
                 year: 1972,
                 rating: 9.2,
-                quality: "HD"
+                quality: "HD",
+                url: "movie-details.html?id=7"
             },
             {
                 title: "Fight Club",
                 poster: "https://via.placeholder.com/300x450",
                 year: 1999,
                 rating: 8.8,
-                quality: "HD"
+                quality: "HD",
+                url: "movie-details.html?id=8"
             }
         ];
 
-        // Sample TV show data
+        // Sample TV show data with URLs
         const tvShows = [
             {
                 title: "Stranger Things",
                 poster: "https://via.placeholder.com/300x450",
                 year: 2016,
                 rating: 8.7,
-                quality: "HD"
+                quality: "HD",
+                url: "tv-details.html?id=1"
             },
             {
                 title: "Breaking Bad",
                 poster: "https://via.placeholder.com/300x450",
                 year: 2008,
                 rating: 9.5,
-                quality: "4K"
+                quality: "4K",
+                url: "tv-details.html?id=2"
             },
             {
                 title: "Game of Thrones",
                 poster: "https://via.placeholder.com/300x450",
                 year: 2011,
                 rating: 9.2,
-                quality: "HD"
+                quality: "HD",
+                url: "tv-details.html?id=3"
             },
             {
                 title: "The Mandalorian",
                 poster: "https://via.placeholder.com/300x450",
                 year: 2019,
                 rating: 8.7,
-                quality: "4K"
+                quality: "4K",
+                url: "tv-details.html?id=4"
             },
             {
                 title: "The Witcher",
                 poster: "https://via.placeholder.com/300x450",
                 year: 2019,
                 rating: 8.2,
-                quality: "HD"
+                quality: "HD",
+                url: "tv-details.html?id=5"
             },
             {
                 title: "The Boys",
                 poster: "https://via.placeholder.com/300x450",
                 year: 2019,
                 rating: 8.7,
-                quality: "HD"
+                quality: "HD",
+                url: "tv-details.html?id=6"
             },
             {
                 title: "Money Heist",
                 poster: "https://via.placeholder.com/300x450",
                 year: 2017,
                 rating: 8.3,
-                quality: "HD"
+                quality: "HD",
+                url: "tv-details.html?id=7"
             },
             {
                 title: "Peaky Blinders",
                 poster: "https://via.placeholder.com/300x450",
                 year: 2013,
                 rating: 8.8,
-                quality: "HD"
+                quality: "HD",
+                url: "tv-details.html?id=8"
             }
         ];
 
         // Function to create movie cards
-        function createMovieCard(movie) {
+        function createMovieCard(item) {
             return `
-                <div class="movie-card">
-                    <img src="${movie.poster}" alt="${movie.title}" class="movie-poster">
+                <div class="movie-card" data-url="${item.url}">
+                    <img src="${item.poster}" alt="${item.title}" class="movie-poster">
                     <div class="movie-info">
-                        <h3 class="movie-title">${movie.title}</h3>
+                        <h3 class="movie-title">${item.title}</h3>
                         <div class="movie-meta">
-                            <span>${movie.year}</span>
-                            <span>${movie.rating}/10</span>
+                            <span>${item.year}</span>
+                            <span>${item.rating}/10</span>
                         </div>
-                        <span class="quality">${movie.quality}</span>
+                        <span class="quality">${item.quality}</span>
                     </div>
                 </div>
             `;
@@ -492,6 +508,17 @@
             searchInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     performSearch();
+                }
+            });
+            
+            // Add click event for movie cards
+            document.addEventListener('click', function(e) {
+                const card = e.target.closest('.movie-card');
+                if (card) {
+                    const url = card.getAttribute('data-url');
+                    if (url) {
+                        window.open(url, '_blank', 'noopener,noreferrer');
+                    }
                 }
             });
         });
