@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLWBD - Movies, TV Shows and More</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS will go here */
+        :root {
+            --primary: #ff4d4d;
+            --dark: #1a1a1a;
+            --darker: #0d0d0d;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+        }
+        
+        header {
+            background-color: var(--darker);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .search-container {
+            display: flex;
+            width: 50%;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            background-color: #333;
+            color: white;
+        }
+        
+        .search-container button {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #ff3333;
+        }
+        
+        .container {
+            padding: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .movie-card {
+            background-color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .movie-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .movie-poster {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .movie-info {
+            padding: 1rem;
+        }
+        
+        .movie-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .quality {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        footer {
+            background-color: var(--darker);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            .search-container {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .movies-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">MLWBD</div>
+        <div class="search-container">
+            <input type="text" placeholder="Search movies, TV shows...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">TV Shows</a></li>
+                <li><a href="#">Genres</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>Watch Latest Movies & TV Shows</h1>
+        <p>Stream or download your favorite content in HD quality. Unlimited entertainment at your fingertips.</p>
+        <button class="btn">Browse Now</button>
+    </section>
+    
+    <div class="container">
+        <div class="section-title">
+            <h2>Latest Movies</h2>
+            <a href="#">View All</a>
+        </div>
+        <div class="movies-grid" id="latest-movies">
+            <!-- Movies will be loaded here via JS -->
+        </div>
+        
+        <div class="section-title">
+            <h2>Popular TV Shows</h2>
+            <a href="#">View All</a>
+        </div>
+        <div class="movies-grid" id="popular-tv">
+            <!-- TV shows will be loaded here via JS -->
+        </div>
+        
+        <div class="section-title">
+            <h2>Top Rated</h2>
+            <a href="#">View All</a>
+        </div>
+        <div class="movies-grid" id="top-rated">
+            <!-- Top rated content will be loaded here via JS -->
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">DMCA</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div class="copyright">
+            &copy; 2023 MLWBD. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Sample movie data
+        const movies = [
+            {
+                title: "Avengers: Endgame",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2019,
+                rating: 8.4,
+                quality: "HD"
+            },
+            {
+                title: "The Dark Knight",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2008,
+                rating: 9.0,
+                quality: "4K"
+            },
+            {
+                title: "Inception",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2010,
+                rating: 8.8,
+                quality: "HD"
+            },
+            {
+                title: "Interstellar",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2014,
+                rating: 8.6,
+                quality: "4K"
+            },
+            {
+                title: "Pulp Fiction",
+                poster: "https://via.placeholder.com/300x450",
+                year: 1994,
+                rating: 8.9,
+                quality: "HD"
+            },
+            {
+                title: "The Shawshank Redemption",
+                poster: "https://via.placeholder.com/300x450",
+                year: 1994,
+                rating: 9.3,
+                quality: "HD"
+            },
+            {
+                title: "The Godfather",
+                poster: "https://via.placeholder.com/300x450",
+                year: 1972,
+                rating: 9.2,
+                quality: "HD"
+            },
+            {
+                title: "Fight Club",
+                poster: "https://via.placeholder.com/300x450",
+                year: 1999,
+                rating: 8.8,
+                quality: "HD"
+            }
+        ];
+
+        // Sample TV show data
+        const tvShows = [
+            {
+                title: "Stranger Things",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2016,
+                rating: 8.7,
+                quality: "HD"
+            },
+            {
+                title: "Breaking Bad",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2008,
+                rating: 9.5,
+                quality: "4K"
+            },
+            {
+                title: "Game of Thrones",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2011,
+                rating: 9.2,
+                quality: "HD"
+            },
+            {
+                title: "The Mandalorian",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2019,
+                rating: 8.7,
+                quality: "4K"
+            },
+            {
+                title: "The Witcher",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2019,
+                rating: 8.2,
+                quality: "HD"
+            },
+            {
+                title: "The Boys",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2019,
+                rating: 8.7,
+                quality: "HD"
+            },
+            {
+                title: "Money Heist",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2017,
+                rating: 8.3,
+                quality: "HD"
+            },
+            {
+                title: "Peaky Blinders",
+                poster: "https://via.placeholder.com/300x450",
+                year: 2013,
+                rating: 8.8,
+                quality: "HD"
+            }
+        ];
+
+        // Function to create movie cards
+        function createMovieCard(movie) {
+            return `
+                <div class="movie-card">
+                    <img src="${movie.poster}" alt="${movie.title}" class="movie-poster">
+                    <div class="movie-info">
+                        <h3 class="movie-title">${movie.title}</h3>
+                        <div class="movie-meta">
+                            <span>${movie.year}</span>
+                            <span>${movie.rating}/10</span>
+                        </div>
+                        <span class="quality">${movie.quality}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load movies and TV shows
+        document.addEventListener('DOMContentLoaded', function() {
+            const latestMoviesGrid = document.getElementById('latest-movies');
+            const popularTVGrid = document.getElementById('popular-tv');
+            const topRatedGrid = document.getElementById('top-rated');
+            
+            // Load latest movies (first 8)
+            movies.slice(0, 8).forEach(movie => {
+                latestMoviesGrid.innerHTML += createMovieCard(movie);
+            });
+            
+            // Load popular TV shows
+            tvShows.slice(0, 8).forEach(show => {
+                popularTVGrid.innerHTML += createMovieCard(show);
+            });
+            
+            // Load top rated (sorted by rating)
+            const topRated = [...movies, ...tvShows]
+                .sort((a, b) => b.rating - a.rating)
+                .slice(0, 8);
+                
+            topRated.forEach(item => {
+                topRatedGrid.innerHTML += createMovieCard(item);
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.search-container input');
+            const searchButton = document.querySelector('.search-container button');
+            
+            function performSearch() {
+                const query = searchInput.value.toLowerCase();
+                if (query.trim() === '') return;
+                
+                // In a real implementation, this would call an API
+                alert(`Searching for: ${query}`);
+            }
+            
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
